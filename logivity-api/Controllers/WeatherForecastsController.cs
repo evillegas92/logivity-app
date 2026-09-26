@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace logivity_api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class WeatherForecastController(ILogger<WeatherForecastController> logger, LogivityDb dbContext) : ControllerBase
+[Route("api/[controller]")]
+public class WeatherForecastsController(ILogger<WeatherForecastsController> logger, LogivityDb dbContext) : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger = logger;
+    private readonly ILogger<WeatherForecastsController> _logger = logger;
     private readonly LogivityDb _dbContext = dbContext;
 
-    [HttpGet(Name = "GetWeatherForecast")]
+    [HttpGet(Name = "GetWeatherForecasts")]
     public IEnumerable<WeatherForecast> Get()
     {
         List<WeatherForecast> allForecasts = _dbContext.WeatherForecasts.ToList();

@@ -52,3 +52,6 @@ Settings live in `appsettings.json`, and `appsettings.Development.json` override
 ```bash
 dotnet user-secrets init
 ```
+
+## Documentation
+- Dotnet Backend: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-10.0&tabs=visual-studio-code
