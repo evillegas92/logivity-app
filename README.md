@@ -1,12 +1,13 @@
 # Logivity
 
-Logivity is a full-stack web application. Right now the repository contains only the backend API.
+Logivity is a full-stack web application made up of an ASP.NET Core Web API backend and a SvelteKit frontend.
 
 ## Repository structure
 
 ```
 logivity-app/
-└── logivity-api/   ASP.NET Core Web API (.NET 10)
+├── logivity-api/   ASP.NET Core Web API (.NET 10)
+└── frontend/       SvelteKit app (Svelte 5, TypeScript, Vite)
 ```
 
 ## logivity-api
@@ -53,5 +54,40 @@ Settings live in `appsettings.json`, and `appsettings.Development.json` override
 dotnet user-secrets init
 ```
 
+## frontend
+
+A SvelteKit app using Svelte 5 (runes mode is on for all project code), TypeScript, and Vite. It was created with the [`sv`](https://github.com/sveltejs/cli) CLI using the minimal template, and it uses `@sveltejs/adapter-auto` for deployment.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) `^20.19.0` or `>=22.12.0` (required by Vite). `frontend/.npmrc` sets `engine-strict=true`, so `npm install` fails on an unsupported Node version.
+
+### Running the frontend
+
+From the `frontend` folder, install dependencies and start the dev server:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The dev server runs on `http://localhost:5173` by default. Add `-- --open` to open it in your browser (`npm run dev -- --open`).
+
+### Other scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run build` | Build the app for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run check` | Type-check the project with `svelte-check` |
+| `npm run check:watch` | Run `svelte-check` in watch mode |
+
+### Editor and AI tooling
+
+- VS Code: install the recommended [Svelte extension](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) (`svelte.svelte-vscode`).
+- Claude Code: the repo's [`.claude/settings.json`](.claude/settings.json) enables the official Svelte plugin (`svelte@svelte` from [`sveltejs/ai-tools`](https://github.com/sveltejs/ai-tools)). Open Claude Code at the repo root and accept the prompt to install it.
+
 ## Documentation
 - Dotnet Backend: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-10.0&tabs=visual-studio-code
+- SvelteKit Frontend: https://svelte.dev/docs/kit
