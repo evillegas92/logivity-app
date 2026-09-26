@@ -1,25 +1,28 @@
+using logivity_api.DB;
+using logivity_api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace logivity_api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController(ILogger<WeatherForecastController> logger, LogivityDb dbContext) : ControllerBase
 {
-    private static readonly string[] Summaries =
-    [
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    ];
+    private readonly ILogger<WeatherForecastController> _logger = logger;
+    private readonly LogivityDb _dbContext = dbContext;
 
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        List<WeatherForecast> allForecasts = _dbContext.WeatherForecasts.ToList();
+        return allForecasts;
+    }
+
+    [HttpPost(Name = "CreateWeatherForecast")]
+    public async Task<IActionResult> Create(WeatherForecast forecast)
+    {
+        _dbContext.WeatherForecasts.Add(forecast);
+        await _dbContext.SaveChangesAsync();
+        return CreatedAtAction(nameof(Get), new { id = forecast.Id }, forecast);
     }
 }
