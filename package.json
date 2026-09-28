@@ -2,6 +2,7 @@
 	"name": "logivity-app",
 	"private": true,
 	"scripts": {
+		"postinstall": "npm install --prefix frontend",
 		"start": "concurrently --kill-others --names api,web --prefix-colors blue,magenta \"npm:start:api\" \"npm:start:web\"",
 		"start:api": "dotnet run --project logivity-api --launch-profile http",
 		"start:web": "wait-on --timeout 120000 tcp:localhost:5235 && npm run dev --prefix frontend -- --port 5173 --open"

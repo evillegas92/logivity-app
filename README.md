@@ -12,11 +12,10 @@ logivity-app/
 
 ## Quick start
 
-To run the backend and the frontend together from the repo root, first install dependencies and create the frontend's `.env` (one-time setup):
+To run the backend and the frontend together from the repo root, first install dependencies and create the frontend's `.env` (one-time setup). `npm install` at the root also installs the frontend's dependencies:
 
 ```bash
 npm install
-npm install --prefix frontend
 cp frontend/.env.example frontend/.env
 ```
 
