@@ -55,6 +55,9 @@ The `http` profile listens on `http://localhost:5235`, and this is the URL the f
 
 ### Trying it out
 
+- List shipments: `GET http://localhost:5235/api/Shipments`
+- Get one shipment: `GET http://localhost:5235/api/Shipments/{id}`
+- Create a shipment: `POST http://localhost:5235/api/Shipments` with `origin`, `destination`, `pickupDate` (`YYYY-MM-DD`) and `description`. New shipments start with status `Open`.
 - OpenAPI document (Development only): `GET http://localhost:5235/openapi/v1.json`
 
 You can also send requests from [`logivity-api/logivity-api.http`](logivity-api/logivity-api.http) using Visual Studio, Rider, or the VS Code REST Client extension.

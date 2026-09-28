@@ -1,6 +1,18 @@
 @logivity_api_HostAddress = http://localhost:5235
 
-GET {{logivity_api_HostAddress}}/openapi/v1.json
+GET {{logivity_api_HostAddress}}/api/Shipments
 Accept: application/json
+
+###
+
+POST {{logivity_api_HostAddress}}/api/Shipments
+Content-Type: application/json
+
+{
+  "origin": "Rotterdam, NL",
+  "destination": "Gothenburg, SE",
+  "pickupDate": "2026-10-15",
+  "description": "12 pallets of packaged electronics, 4.8 t"
+}
 
 ###
