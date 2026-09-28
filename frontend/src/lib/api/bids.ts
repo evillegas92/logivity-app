@@ -1,4 +1,4 @@
-import { apiPost } from './client';
+import { apiGet, apiPost } from './client';
 
 /** Mirrors logivity-api's `BidResponse` model (camelCase via System.Text.Json). */
 export interface Bid {
@@ -18,6 +18,14 @@ export interface CreateBidInput {
 	/** Price in SEK, or `null` when none was entered (the API rejects that with a field error). */
 	price: number | null;
 	note: string | null;
+}
+
+/**
+ * All bids on a shipment, cheapest first (earliest first when prices tie).
+ * Throws an `ApiError` with status 404 if the shipment doesn't exist.
+ */
+export function getBids(fetchFn: typeof fetch, shipmentId: number): Promise<Bid[]> {
+	return apiGet<Bid[]>(fetchFn, `/api/shipments/${shipmentId}/bids`);
 }
 
 /**

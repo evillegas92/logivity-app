@@ -33,6 +33,11 @@ Content-Type: application/json
 
 ###
 
+GET {{logivity_api_HostAddress}}/api/shipments/1/bids
+Accept: application/json
+
+###
+
 GET {{logivity_api_HostAddress}}/api/shipments/1/bids/1
 Accept: application/json
 

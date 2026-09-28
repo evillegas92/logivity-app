@@ -12,6 +12,16 @@ export function formatDate(isoDate: string): string {
 	return dateFormat.format(new Date(year, month - 1, day));
 }
 
+/**
+ * Formats an ISO timestamp as e.g. "28 Sep 2026, 14:11", in `timeZone`
+ * (the runtime's own time zone when omitted).
+ */
+export function formatDateTime(isoTimestamp: string, timeZone?: string): string {
+	return new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone }).format(
+		new Date(isoTimestamp)
+	);
+}
+
 /** Today's date in the browser's time zone, as an ISO date. */
 export function todayIsoDate(): string {
 	const now = new Date();

@@ -59,6 +59,7 @@ The `http` profile listens on `http://localhost:5235`, and this is the URL the f
 - Get one shipment: `GET http://localhost:5235/api/Shipments/{id}`
 - Create a shipment: `POST http://localhost:5235/api/Shipments` with `origin`, `destination`, `pickupDate` (`YYYY-MM-DD`) and `description`. New shipments start with status `Open`.
 - Place a bid on a shipment: `POST http://localhost:5235/api/shipments/{shipmentId}/bids` with `carrierName`, `price` (SEK, up to 2 decimals) and an optional `note`. Only `Open` shipments accept bids.
+- List a shipment's bids, cheapest first: `GET http://localhost:5235/api/shipments/{shipmentId}/bids`
 - Get one bid: `GET http://localhost:5235/api/shipments/{shipmentId}/bids/{id}`
 - OpenAPI document (Development only): `GET http://localhost:5235/openapi/v1.json`
 

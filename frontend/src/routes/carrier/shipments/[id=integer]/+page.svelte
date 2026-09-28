@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
 	import CircleCheckIcon from '@lucide/svelte/icons/circle-check';
+	import ShipmentDetails from '$lib/components/shipment-details.svelte';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
@@ -9,7 +10,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea';
 	import { shipmentStatusLabels } from '$lib/api/shipments';
-	import { formatDate, formatPrice } from '$lib/format';
+	import { formatPrice } from '$lib/format';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -37,35 +38,7 @@
 </div>
 
 <div class="grid items-start gap-6 lg:grid-cols-[1fr_24rem]">
-	<Card.Root>
-		<Card.Header>
-			<Card.Title>Shipment details</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<dl class="grid gap-4 sm:grid-cols-2">
-				<div class="flex flex-col gap-1">
-					<dt class="text-muted-foreground">Origin</dt>
-					<dd>{shipment.origin}</dd>
-				</div>
-				<div class="flex flex-col gap-1">
-					<dt class="text-muted-foreground">Destination</dt>
-					<dd>{shipment.destination}</dd>
-				</div>
-				<div class="flex flex-col gap-1">
-					<dt class="text-muted-foreground">Pickup date</dt>
-					<dd>{formatDate(shipment.pickupDate)}</dd>
-				</div>
-				<div class="flex flex-col gap-1">
-					<dt class="text-muted-foreground">Status</dt>
-					<dd>{shipmentStatusLabels[shipment.status]}</dd>
-				</div>
-				<div class="flex flex-col gap-1 sm:col-span-2">
-					<dt class="text-muted-foreground">Description</dt>
-					<dd class="whitespace-pre-line">{shipment.description}</dd>
-				</div>
-			</dl>
-		</Card.Content>
-	</Card.Root>
+	<ShipmentDetails {shipment} />
 
 	<Card.Root>
 		<Card.Header>

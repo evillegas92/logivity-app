@@ -20,5 +20,5 @@
 {#if data.shipments.length === 0}
 	<p class="text-muted-foreground">You haven't created any shipments yet.</p>
 {:else}
-	<ShipmentList shipments={data.shipments} />
+	<ShipmentList shipments={data.shipments} hrefFor={(shipment) => `/shipper/shipments/${shipment.id}`} />
 {/if}

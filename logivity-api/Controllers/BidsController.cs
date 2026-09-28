@@ -13,6 +13,23 @@ public class BidsController(LogivityDb dbContext) : ControllerBase
 {
     private readonly LogivityDb _dbContext = dbContext;
 
+    /// <summary>All bids on a shipment, cheapest first (earliest first when prices tie).</summary>
+    [HttpGet(Name = "GetBids")]
+    public async Task<ActionResult<IEnumerable<BidResponse>>> GetAll(int shipmentId)
+    {
+        if (!await _dbContext.Shipments.AnyAsync(s => s.Id == shipmentId))
+        {
+            return NotFound();
+        }
+
+        List<Bid> bids = await _dbContext.Bids
+            .Where(b => b.ShipmentId == shipmentId)
+            .OrderBy(b => b.Price)
+            .ThenBy(b => b.CreatedAt)
+            .ToListAsync();
+        return bids.Select(BidResponse.FromEntity).ToList();
+    }
+
     [HttpGet("{id:int}", Name = "GetBid")]
     public async Task<ActionResult<BidResponse>> GetById(int shipmentId, int id)
     {
