@@ -29,20 +29,15 @@ From the `logivity-api` folder:
 
 ```bash
 cd logivity-api
-dotnet run --launch-profile https
+dotnet run --launch-profile http
 ```
 
-The API will listen on:
-
-- `https://localhost:7134`
-- `http://localhost:5235` (redirects to HTTPS)
-
-The `https` profile runs the app with `ASPNETCORE_ENVIRONMENT=Development`.
+The `http` profile listens on `http://localhost:5235`, and this is the URL the frontend calls in local development. The `https` profile listens on `https://localhost:7134` and redirects HTTP to HTTPS. The frontend's server-side rendering (Node) doesn't trust the .NET dev certificate, so use the `http` profile when you run the frontend. Both profiles run the app with `ASPNETCORE_ENVIRONMENT=Development`.
 
 ### Trying it out
 
-- Sample endpoint: `GET https://localhost:7134/weatherforecast`
-- OpenAPI document (Development only): `GET https://localhost:7134/openapi/v1.json`
+- Weather forecasts: `GET http://localhost:5235/api/WeatherForecasts`
+- OpenAPI document (Development only): `GET http://localhost:5235/openapi/v1.json`
 
 You can also send requests from [`logivity-api/logivity-api.http`](logivity-api/logivity-api.http) using Visual Studio, Rider, or the VS Code REST Client extension.
 
@@ -53,6 +48,10 @@ Settings live in `appsettings.json`, and `appsettings.Development.json` override
 ```bash
 dotnet user-secrets init
 ```
+
+#### CORS
+
+The API only accepts cross-origin requests from the origins listed in `Cors:AllowedOrigins`. `appsettings.Development.json` allows the frontend dev server (`http://localhost:5173`). For other environments, set the origins in that environment's configuration, for example `Cors__AllowedOrigins__0=https://app.example.com`.
 
 ## frontend
 
@@ -68,11 +67,14 @@ From the `frontend` folder, install dependencies and start the dev server:
 
 ```bash
 cd frontend
+cp .env.example .env
 npm install
-npm run dev
+npm run dev -- --port 5173
 ```
 
-The dev server runs on `http://localhost:5173` by default. Add `-- --open` to open it in your browser (`npm run dev -- --open`).
+`.env` sets `PUBLIC_API_BASE_URL`, the base URL of the API (default `http://localhost:5235`). It's git-ignored, so change it locally or set the variable in your deployment environment. The value is baked in at build time (`$env/static/public`), and the build fails if it isn't set.
+
+Always pass `--port 5173`. The API's CORS policy only allows `http://localhost:5173`. The `dev` script uses `--strictPort`, so if 5173 is busy, Vite exits with an error instead of moving to another port the API would reject. To open the app in your browser too, add `--open`: `npm run dev -- --port 5173 --open`.
 
 ### Other scripts
 
