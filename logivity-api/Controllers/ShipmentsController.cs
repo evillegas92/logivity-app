@@ -13,10 +13,17 @@ public class ShipmentsController(LogivityDb dbContext) : ControllerBase
     private readonly LogivityDb _dbContext = dbContext;
 
     /// <summary>All shipments, newest first.</summary>
+    /// <param name="status">Only return shipments with this status, e.g. <c>?status=Open</c>.</param>
     [HttpGet(Name = "GetShipments")]
-    public async Task<IEnumerable<ShipmentResponse>> GetAll()
+    public async Task<IEnumerable<ShipmentResponse>> GetAll([FromQuery] ShipmentStatus? status)
     {
-        List<Shipment> shipments = await _dbContext.Shipments
+        IQueryable<Shipment> query = _dbContext.Shipments;
+        if (status is not null)
+        {
+            query = query.Where(s => s.Status == status);
+        }
+
+        List<Shipment> shipments = await query
             .OrderByDescending(s => s.CreatedAt)
             .ToListAsync();
         return shipments.Select(ShipmentResponse.FromEntity);

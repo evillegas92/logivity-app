@@ -29,8 +29,13 @@ export interface CreateShipmentInput {
 	description: string;
 }
 
-export function getShipments(fetchFn: typeof fetch): Promise<Shipment[]> {
-	return apiGet<Shipment[]>(fetchFn, '/api/Shipments');
+/** All shipments, newest first. Pass `status` to only get shipments with that status. */
+export function getShipments(
+	fetchFn: typeof fetch,
+	filter: { status?: ShipmentStatus } = {}
+): Promise<Shipment[]> {
+	const query = filter.status ? `?status=${filter.status}` : '';
+	return apiGet<Shipment[]>(fetchFn, `/api/Shipments${query}`);
 }
 
 export function createShipment(fetchFn: typeof fetch, input: CreateShipmentInput): Promise<Shipment> {

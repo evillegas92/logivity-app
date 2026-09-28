@@ -5,6 +5,11 @@ Accept: application/json
 
 ###
 
+GET {{logivity_api_HostAddress}}/api/Shipments?status=Open
+Accept: application/json
+
+###
+
 POST {{logivity_api_HostAddress}}/api/Shipments
 Content-Type: application/json
 

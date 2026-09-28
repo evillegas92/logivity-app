@@ -55,7 +55,7 @@ The `http` profile listens on `http://localhost:5235`, and this is the URL the f
 
 ### Trying it out
 
-- List shipments: `GET http://localhost:5235/api/Shipments`
+- List shipments: `GET http://localhost:5235/api/Shipments`. Add `?status=Open` to only get open shipments.
 - Get one shipment: `GET http://localhost:5235/api/Shipments/{id}`
 - Create a shipment: `POST http://localhost:5235/api/Shipments` with `origin`, `destination`, `pickupDate` (`YYYY-MM-DD`) and `description`. New shipments start with status `Open`.
 - OpenAPI document (Development only): `GET http://localhost:5235/openapi/v1.json`
