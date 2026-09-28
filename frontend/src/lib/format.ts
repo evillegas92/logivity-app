@@ -1,4 +1,10 @@
 const dateFormat = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' });
+const priceFormat = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'SEK' });
+
+/** Formats a price in SEK, e.g. "SEK 12,500.00". */
+export function formatPrice(amount: number): string {
+	return priceFormat.format(amount);
+}
 
 /** Formats an ISO date ("2026-10-15") as "15 Oct 2026", without shifting it across time zones. */
 export function formatDate(isoDate: string): string {

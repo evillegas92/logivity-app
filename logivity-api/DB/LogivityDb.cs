@@ -10,4 +10,5 @@ public class LogivityDb : DbContext
     }
 
     public DbSet<Shipment> Shipments { get; set; }
+    public DbSet<Bid> Bids { get; set; }
 }

@@ -15,5 +15,5 @@
 {#if data.shipments.length === 0}
 	<p class="text-muted-foreground">There are no open shipments right now.</p>
 {:else}
-	<ShipmentList shipments={data.shipments} />
+	<ShipmentList shipments={data.shipments} hrefFor={(shipment) => `/carrier/shipments/${shipment.id}`} />
 {/if}

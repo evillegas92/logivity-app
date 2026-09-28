@@ -21,3 +21,19 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{logivity_api_HostAddress}}/api/shipments/1/bids
+Content-Type: application/json
+
+{
+  "carrierName": "Nordic Freight AB",
+  "price": 12500,
+  "note": "Can pick up a day early"
+}
+
+###
+
+GET {{logivity_api_HostAddress}}/api/shipments/1/bids/1
+Accept: application/json
+
+###

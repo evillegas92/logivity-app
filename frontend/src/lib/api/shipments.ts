@@ -38,6 +38,11 @@ export function getShipments(
 	return apiGet<Shipment[]>(fetchFn, `/api/Shipments${query}`);
 }
 
+/** Throws an `ApiError` with status 404 when there's no shipment with that id. */
+export function getShipment(fetchFn: typeof fetch, id: number): Promise<Shipment> {
+	return apiGet<Shipment>(fetchFn, `/api/Shipments/${id}`);
+}
+
 export function createShipment(fetchFn: typeof fetch, input: CreateShipmentInput): Promise<Shipment> {
 	return apiPost<Shipment>(fetchFn, '/api/Shipments', input);
 }

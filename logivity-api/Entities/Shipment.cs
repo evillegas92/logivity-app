@@ -9,4 +9,7 @@ public class Shipment
     public required string Description { get; set; }
     public ShipmentStatus Status { get; set; } = ShipmentStatus.Open;
     public DateTimeOffset CreatedAt { get; set; }
+
+    /// <summary>Bids from any number of carriers.</summary>
+    public List<Bid> Bids { get; set; } = [];
 }
