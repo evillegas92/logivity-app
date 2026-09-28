@@ -1,0 +1,13 @@
+{
+	"name": "logivity-app",
+	"private": true,
+	"scripts": {
+		"start": "concurrently --kill-others --names api,web --prefix-colors blue,magenta \"npm:start:api\" \"npm:start:web\"",
+		"start:api": "dotnet run --project logivity-api --launch-profile http",
+		"start:web": "wait-on --timeout 120000 tcp:localhost:5235 && npm run dev --prefix frontend -- --port 5173 --open"
+	},
+	"devDependencies": {
+		"concurrently": "^10.0.5",
+		"wait-on": "^9.1.0"
+	}
+}

@@ -10,6 +10,26 @@ logivity-app/
 └── frontend/       SvelteKit app (Svelte 5, TypeScript, Vite)
 ```
 
+## Quick start
+
+To run the backend and the frontend together from the repo root, first install dependencies and create the frontend's `.env` (one-time setup):
+
+```bash
+npm install
+npm install --prefix frontend
+cp frontend/.env.example frontend/.env
+```
+
+Then start both apps:
+
+```bash
+npm start
+```
+
+This starts the API on `http://localhost:5235`, waits until it's listening, then starts the frontend on `http://localhost:5173` and opens it in your browser. Output from each app is prefixed with `[api]` or `[web]`. Press Ctrl+C to stop both; if either app exits, the other is stopped too.
+
+To run just one of them from the root, use `npm run start:api` or `npm run start:web`. `start:web` waits for the API, so start the API first; it gives up after 2 minutes. The sections below describe running each app on its own from its folder.
+
 ## logivity-api
 
 An ASP.NET Core Web API targeting .NET 10, using controllers and built-in OpenAPI document generation (`Microsoft.AspNetCore.OpenApi`).
